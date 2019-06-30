@@ -36,12 +36,12 @@ namespace CodesConverter.Models.Ciphers
         public string Encode(string textToEncode)
         {
             StringBuilder result = new StringBuilder();
-            foreach (var character in textToEncode.ToUpper())
+            foreach (var character in textToEncode)
             {
                 result.Append(EncodeSign(character));
                 result.Append(" ");
             }
-            return result.ToString();
+            return result.ToString().Trim();
         }
 
         public void SetKey(string key)
@@ -100,13 +100,14 @@ namespace CodesConverter.Models.Ciphers
 
         private string EncodeSign(char character)
         {
-            if (_morseCode.ContainsKey(character))
+            var index = character.ToString().ToUpper().First();
+            if (_morseCode.ContainsKey(index))
             {
-                return _morseCode[character];
+                return _morseCode[index];
             }
             else
             {
-                return _morseCode[character];
+                return character.ToString();
             }
         }
 
